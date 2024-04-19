@@ -1,16 +1,19 @@
 <script lang="ts">
+	import '../app.postcss';
 	import { templates, type TemplatesKey } from '$lib/templates';
 	import { keysOf, valuesOf } from '$lib/utils';
 	import Copy from '$lib/icon/Copy.svelte';
 	import Notebook from '$lib/icon/Notebook.svelte';
 
 	let current = valuesOf(templates)[0];
-	let currentText = '';
+	let currentName = keysOf(templates)[0];
 
-	const setCurrent = (name: TemplatesKey) => (current = templates[name]);
+	const setCurrent = (name: TemplatesKey) => {
+		current = templates[name];
+		currentName = name;
+	};
 	const onCopy = async (name: TemplatesKey) => {
 		const template = await fetch(`api/${name}/text`).then((res) => res.text());
-		currentText = template;
 		await navigator.clipboard.writeText(template);
 	};
 </script>
@@ -27,7 +30,7 @@
 				</button>
 				<a
 					class="group bg-neutral-800 p-2 text-white transition-all duration-300 hover:bg-neutral-900"
-					href="api/{name}"
+					href="api/{name}/text"
 					target="_blank"
 				>
 					<Notebook fill="#ffffff" class="size-4 text-white" />
@@ -43,9 +46,7 @@
 	</nav>
 
 	<main class="flex-1 overflow-auto rounded bg-neutral-800">
-		<svelte:component this={current} />
+		<!-- <svelte:component this={current} /> -->
+		<iframe src="api/{currentName}/html" title="site" class="h-full w-full" />
 	</main>
-	<!-- <main class="flex-1 bg-neutral-800 rounded overflow-auto">
-		<iframe srcdoc={currentText} title="site"></iframe>
-	</main> -->
 </div>

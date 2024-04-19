@@ -1,5 +1,18 @@
 <script lang="ts">
-	import { Html, Head, Button, Container, Column, Section, Heading, Hr, Img, Link, Preview, Text } from 'svelte-email';
+	import {
+		Html,
+		Head,
+		Button,
+		Container,
+		Column,
+		Section,
+		Heading,
+		Hr,
+		Img,
+		Link,
+		Preview,
+		Text,
+	} from 'svelte-email';
 </script>
 
 <Html lang="en">
@@ -66,7 +79,12 @@
 									<tr>
 										<td>
 											<a href="#fe">
-												<img src="http://xed.im/img/sid.png" alt="logo" width="190" title="logo" />
+												<img
+													src="http://xed.im/img/sid.png"
+													alt="logo"
+													width="190"
+													title="logo"
+												/>
 											</a>
 										</td>
 									</tr>
@@ -76,9 +94,13 @@
 									<tr>
 										<td>
 											<p style="font-size: 12px; color: #151515; text-align: right;">
-												<a href={'https://www.facebook.com/gesuapp'} style="color: #151515;"> Facebook </a>
+												<a href={'https://www.facebook.com/gesuapp'} style="color: #151515;">
+													Facebook
+												</a>
 												<span style="padding: 0 10px;">|</span>
-												<a href="https://www.instagram.com/gesuapp" style="color: #151515;"> Instagram </a>
+												<a href="https://www.instagram.com/gesuapp" style="color: #151515;">
+													Instagram
+												</a>
 											</p>
 										</td>
 									</tr>
