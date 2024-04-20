@@ -4,10 +4,24 @@
 	import { keysOf, valuesOf } from '$lib/utils';
 	import Copy from '$lib/icon/Copy.svelte';
 	import Notebook from '$lib/icon/Notebook.svelte';
+	import { onMount } from 'svelte';
 
 	let current = valuesOf(templates)[0];
 	let currentName = keysOf(templates)[0];
+	let iframe: HTMLIFrameElement;
 
+	const getPage = async (name: string) => {
+		const res = await fetch(`api/${name}/html`);
+		const html = await res.text();
+		return html;
+	};
+	const updateIFrame = async () => {
+		const html = await getPage(currentName);
+		// iframe?.contentWindow?.location.reload();
+		iframe.contentDocument!.open();
+		iframe.contentDocument!.write(html);
+		iframe.contentDocument!.close();
+	};
 	const setCurrent = (name: TemplatesKey) => {
 		current = templates[name];
 		currentName = name;
@@ -16,6 +30,14 @@
 		const template = await fetch(`api/${name}/text`).then((res) => res.text());
 		await navigator.clipboard.writeText(template);
 	};
+
+	onMount(() => {
+		const updateIframe = setInterval(updateIFrame, 500);
+
+		return () => {
+			clearInterval(updateIframe);
+		};
+	});
 </script>
 
 <div class="flex h-full gap-2 bg-neutral-950 p-2">
@@ -47,6 +69,6 @@
 
 	<main class="flex-1 overflow-auto rounded bg-neutral-800">
 		<!-- <svelte:component this={current} /> -->
-		<iframe src="api/{currentName}/html" title="site" class="h-full w-full" />
+		<iframe bind:this={iframe} src="api/{currentName}/html" title="site" class="h-full w-full" />
 	</main>
 </div>
