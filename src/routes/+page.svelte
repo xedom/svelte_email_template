@@ -4,6 +4,7 @@
 	import { keysOf, valuesOf } from '$lib/utils';
 	import Copy from '$lib/icon/Copy.svelte';
 	import Notebook from '$lib/icon/Notebook.svelte';
+	import Globe from '$lib/icon/Globe.svelte';
 	import { onMount } from 'svelte';
 
 	let current = valuesOf(templates)[0];
@@ -56,6 +57,13 @@
 					target="_blank"
 				>
 					<Notebook fill="#ffffff" class="size-4 text-white" />
+				</a>
+				<a
+					class="group bg-neutral-800 p-2 text-white transition-all duration-300 hover:bg-neutral-900"
+					href="api/{name}/html"
+					target="_blank"
+				>
+					<Globe fill="#ffffff" class="size-4 text-white" />
 				</a>
 				<button
 					class="group rounded-e bg-neutral-800 p-2 text-white transition-all duration-300 hover:bg-neutral-900"
